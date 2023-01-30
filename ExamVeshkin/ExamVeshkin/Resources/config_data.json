@@ -1,5 +1,8 @@
 ﻿{
     "hostAndPort": "http://localhost:8080",
     "webPath": "/web",
-    "apiPath": "/api"
+    "apiPath": "/api",
+    "variant": "2",
+    "userName": "login",
+    "password": "password"
 }
