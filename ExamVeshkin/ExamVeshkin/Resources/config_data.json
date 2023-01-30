@@ -1,0 +1,5 @@
+﻿{
+    "hostAndPort": "http://localhost:8080",
+    "webPath": "/web",
+    "apiPath": "/api"
+}
