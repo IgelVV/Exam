@@ -1,6 +1,5 @@
 ﻿using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Forms;
-using Aquality.Selenium.Browsers;
 using ExamVeshkin.Models;
 using OpenQA.Selenium;
 
@@ -8,7 +7,7 @@ namespace ExamVeshkin.Forms
 {
     public class TableForm : Form
     {
-        private const int FIRST_VALUABLE_ROW_INDEX = 1;
+        private const int NON_VALUABLE_ROWS = 1;
         private const int NAME_INDEX = 0;
         private const int METHOD_INDEX = 1;
         private const int STATUS_INDEX = 2;
@@ -26,11 +25,10 @@ namespace ExamVeshkin.Forms
 
         public List<TestRecord> GetTestRecords()
         {
-            State.WaitForEnabled();
+            State.WaitForDisplayed();
             List<TestRecord> testRecords= new();
-            foreach (IElement row in Rows.Skip(FIRST_VALUABLE_ROW_INDEX))
+            foreach (IElement row in Rows.Skip(NON_VALUABLE_ROWS))
             {
-                row.State.WaitForDisplayed();
                 testRecords.Add(RowToRecord(row));
             }
             return testRecords;
@@ -39,7 +37,7 @@ namespace ExamVeshkin.Forms
         private TestRecord RowToRecord(IElement row)
         {
             IList<ILabel> cells = GetCells(row);
-            TestRecord testRecord = new TestRecord
+            TestRecord testRecord = new()
             {
                 Name= cells[NAME_INDEX].Text,
                 Method = cells[METHOD_INDEX].Text,

@@ -2,7 +2,7 @@
     "browserName": "chrome",
     "isRemote": false,
     "remoteConnectionUrl": "http://localhost:4444/wd/hub",
-    "isElementHighlightEnabled": false,
+    "isElementHighlightEnabled": true,
 
     "driverSettings": {
         "chrome": {

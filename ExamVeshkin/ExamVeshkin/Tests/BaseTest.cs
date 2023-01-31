@@ -16,9 +16,14 @@ namespace ExamVeshkin.Tests
 
         private API.API? _api;
         private HomePage? _homePage;
+        private ProjectPage? _projectPage;
+        private AddProjectPage? _addProjectPage;
+
 
         protected API.API Api => _api ??= new();
         protected HomePage HomePage => _homePage ??= new();
+        protected ProjectPage ProjectPage => _projectPage ??= new();
+        protected AddProjectPage AddProjectPage => _addProjectPage ??= new();
 
         [SetUp]
         public void Setup()

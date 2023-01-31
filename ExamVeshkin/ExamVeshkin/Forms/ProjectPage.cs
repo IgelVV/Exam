@@ -8,10 +8,9 @@ namespace ExamVeshkin.Forms
     {
         public readonly Footer footer = new();
         public readonly TableForm table = new();
+        public readonly PanelHeading panelHeading = new();
 
-        public ProjectPage(string projectName) 
-            : base(By.XPath($"//*[contains(@class, 'breadcrumb')]/*[text()[contains(., '{projectName}')]]"), 
-                  $"{nameof(ProjectPage)} {projectName}")
+        public ProjectPage() : base(By.ClassName("nav-tabs"), nameof(ProjectPage))
         {
         }
     }
