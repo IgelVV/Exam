@@ -1,5 +1,6 @@
 ﻿{
-    "hostAndPort": "http://localhost:8080",
+    "scheme": "http://",
+    "hostAndPort": "localhost:8080",
     "webPath": "/web",
     "apiPath": "/api",
     "variant": "2",

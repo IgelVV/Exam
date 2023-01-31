@@ -13,7 +13,6 @@ namespace ExamVeshkin.Tests
             ?? TestContext.CurrentContext.Test.Name.Replace("_", string.Empty);
 
         private static Logger Logger => Logger.Instance;
-        private string _startUrl = ConfigManager.HostAndPort + ConfigManager.WebPath;
 
         private API.API? _api;
         private HomePage? _homePage;
@@ -37,11 +36,5 @@ namespace ExamVeshkin.Tests
                 AqualityServices.Browser.Quit();
             }
         }
-
-        //protected void GoToStartPage()
-        //{
-        //    AqualityServices.Browser.GoTo(_startUrl);
-        //    AqualityServices.Browser.Maximize();
-        //}
     }
 }
