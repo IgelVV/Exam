@@ -1,7 +1,9 @@
 ﻿using ExamVeshkin.Models;
 using ExamVeshkin.Utilities;
+using ExamVeshkin.Extensions;
 using RestSharp;
 using RestSharp.Authenticators;
+using System.Net;
 
 namespace ExamVeshkin.API
 {
@@ -12,7 +14,7 @@ namespace ExamVeshkin.API
                                         + ConfigManager.APIPath;
         private readonly RestClient _client = new(_baseUrl)
         {
-            Authenticator = new HttpBasicAuthenticator(ConfigManager.UserName, ConfigManager.Password)
+            //Authenticator = new HttpBasicAuthenticator(ConfigManager.UserName, ConfigManager.Password)
         };
 
         public string? GetToken()
@@ -32,6 +34,21 @@ namespace ExamVeshkin.API
 
             List<TestRecord>? response = _client.Post<List<TestRecord>>(request);
             return response;
+        }
+
+        public string? AddNewTest(string sid, string projectName, string testName, string methodName)
+        {
+            string hostName = Dns.GetHostName();
+            var request = new RestRequest(APIEndpoints.TEST_PUT);
+            request.AddParameter("SID", sid);
+            request.AddParameter("projectName", projectName);
+            request.AddParameter("testName", testName);
+            request.AddParameter("methodName", methodName);
+            request.AddParameter("env", hostName);
+
+            RestResponse response = _client.Post(request);
+            string? id = response.Content;
+            return id;
         }
     }
 }

@@ -1,8 +1,7 @@
 ﻿using Aquality.Selenium.Browsers;
 using Aquality.Selenium.Core.Logging;
-using ExamVeshkin.Utilities;
 using ExamVeshkin.Forms;
-using ExamVeshkin.API;
+using ExamVeshkin.Extensions;
 
 namespace ExamVeshkin.Tests
 {
@@ -18,12 +17,13 @@ namespace ExamVeshkin.Tests
         private HomePage? _homePage;
         private ProjectPage? _projectPage;
         private AddProjectPage? _addProjectPage;
-
+        private string? _sid;
 
         protected API.API Api => _api ??= new();
         protected HomePage HomePage => _homePage ??= new();
         protected ProjectPage ProjectPage => _projectPage ??= new();
         protected AddProjectPage AddProjectPage => _addProjectPage ??= new();
+        protected string Sid => _sid ??= DateTime.Now.ToUnixTimeMilliSeconds();
 
         [SetUp]
         public void Setup()

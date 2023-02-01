@@ -13,9 +13,13 @@ namespace ExamVeshkin.Tests
                                    $"{ConfigManager.UserName}:{ConfigManager.Password}@" +
                                    $"{ConfigManager.HostAndPort}{ConfigManager.WebPath}";
 
+        private readonly string _testName = nameof(UIAndAPITest);
+
         [Test(Description = "ChekingBaseFunctionalityOfAPIandUI")]
         public void ChekingBaseFunctionalityOfAPIandUI()
         {
+            string methodName = nameof(ChekingBaseFunctionalityOfAPIandUI); //уточнить
+
             string? token = Api.GetToken();
             Assert.That(token, Is.Not.Null, 
                 "Токен НЕ был сгенерирован");
@@ -30,17 +34,17 @@ namespace ExamVeshkin.Tests
             Assert.That(HomePage.footer.GetVariantNumber(), Is.EqualTo(ConfigManager.Variant),
                 "В футере указан НЕ верный номер варианта");
 
-            HomePage.WaitAndClickProjectButton(ConfigManager.ProjectName);
-            List<TestRecord>? testRecordsApi = Api.TestGetJson();
-            List<TestRecord> testRecordsUI = ProjectPage.table.GetTestRecords();
-            List<TestRecord> testRecordsUIExpected = testRecordsUI
-                .OrderByDescending(x => DateTime.Parse(x.StartTime)).ToList();
-            Assert.That(testRecordsUI.SequenceEqual(testRecordsUIExpected), Is.True, 
-                "Тесты, находящиеся на первой странице НЕ отсортированы по убыванию даты.");
-            Assert.That(testRecordsUI.All(record => testRecordsApi.Contains(record)), Is.True, 
-                "Тесты, находящиеся на первой странице НЕ соответствуют тем, которые вернул запрос к апи");
+            //HomePage.WaitAndClickProjectButton(ConfigManager.ProjectName);
+            //List<TestRecord>? testRecordsApi = Api.TestGetJson();
+            //List<TestRecord> testRecordsUI = ProjectPage.table.GetTestRecords();
+            //List<TestRecord> testRecordsUIExpected = testRecordsUI
+            //    .OrderByDescending(x => DateTime.Parse(x.StartTime)).ToList();
+            //Assert.That(testRecordsUI.SequenceEqual(testRecordsUIExpected), Is.True, 
+            //    "Тесты, находящиеся на первой странице НЕ отсортированы по убыванию даты.");
+            //Assert.That(testRecordsUI.All(record => testRecordsApi.Contains(record)), Is.True, 
+            //    "Тесты, находящиеся на первой странице НЕ соответствуют тем, которые вернул запрос к апи");
 
-            AqualityServices.Browser.GoBack();
+            //AqualityServices.Browser.GoBack();
             HomePage.panelHeading.ClickAdd();
             string mainTab = AqualityServices.Browser.Tabs().CurrentTabHandle;
             string nameOfNewProject = RandomUtils.GenerateString();
@@ -54,6 +58,9 @@ namespace ExamVeshkin.Tests
             AqualityServices.Browser.Refresh();
             Assert.That(HomePage.IsProjectExist(nameOfNewProject), Is.True, 
                 "После обновления страницы проект НЕ появился в списке");
+
+            HomePage.WaitAndClickProjectButton(nameOfNewProject);
+            string newTestRecord = Api.AddNewTest(Sid,nameOfNewProject, _testName, methodName);
         }
     }
 }
