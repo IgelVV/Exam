@@ -1,6 +1,5 @@
 ﻿using ExamVeshkin.Models;
 using ExamVeshkin.Utilities;
-using ExamVeshkin.Extensions;
 using RestSharp;
 using RestSharp.Authenticators;
 using System.Net;
@@ -14,7 +13,7 @@ namespace ExamVeshkin.API
                                         + ConfigManager.APIPath;
         private readonly RestClient _client = new(_baseUrl)
         {
-            //Authenticator = new HttpBasicAuthenticator(ConfigManager.UserName, ConfigManager.Password)
+            Authenticator = new HttpBasicAuthenticator(ConfigManager.UserName, ConfigManager.Password)
         };
 
         public string? GetToken()
@@ -36,7 +35,7 @@ namespace ExamVeshkin.API
             return response;
         }
 
-        public string? AddNewTest(string sid, string projectName, string testName, string methodName)
+        public string? CreateTestRecord(string sid, string projectName, string testName, string methodName)
         {
             string hostName = Dns.GetHostName();
             var request = new RestRequest(APIEndpoints.TEST_PUT);
@@ -49,6 +48,23 @@ namespace ExamVeshkin.API
             RestResponse response = _client.Post(request);
             string? id = response.Content;
             return id;
+        }
+
+        public void SendTestLog(string testId)
+        {
+            var request = new RestRequest(APIEndpoints.TEST_PUT_LOG);
+            request.AddParameter("testId", testId);
+            request.AddParameter("content", File.ReadAllText(ConfigManager.PathToLog));
+            _client.Post(request);
+        }
+
+        public void AttachPictureToTest(string testId, string picture)
+        {
+            var request = new RestRequest(APIEndpoints.TEST_PUT_ATTACHMENT);
+            request.AddParameter("testId", testId);
+            request.AddParameter("contentType", "image/png");
+            request.AddParameter("content", picture);
+            _client.Post(request);
         }
     }
 }

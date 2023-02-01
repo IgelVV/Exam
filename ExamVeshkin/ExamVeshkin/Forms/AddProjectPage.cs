@@ -1,6 +1,5 @@
 ﻿using Aquality.Selenium.Elements.Interfaces;
 using Aquality.Selenium.Forms;
-using ExamVeshkin.Extensions;
 using OpenQA.Selenium;
 
 namespace ExamVeshkin.Forms

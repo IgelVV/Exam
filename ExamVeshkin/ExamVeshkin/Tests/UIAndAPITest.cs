@@ -4,6 +4,7 @@ using ExamVeshkin.Models;
 using ExamVeshkin.Forms;
 using ExamVeshkin.Utilities;
 using OpenQA.Selenium;
+using NUnit.Framework.Internal;
 
 namespace ExamVeshkin.Tests
 {
@@ -41,7 +42,7 @@ namespace ExamVeshkin.Tests
             //    .OrderByDescending(x => DateTime.Parse(x.StartTime)).ToList();
             //Assert.That(testRecordsUI.SequenceEqual(testRecordsUIExpected), Is.True, 
             //    "Тесты, находящиеся на первой странице НЕ отсортированы по убыванию даты.");
-            //Assert.That(testRecordsUI.All(record => testRecordsApi.Contains(record)), Is.True, 
+            //Assert.That(testRecordsUI.All(record => testRecordsApi.Contains(record)), Is.True, //CollectionAssert.IsSubsetOf(IEnumerable subset, IEnumerable superset, string message, params object[] args);
             //    "Тесты, находящиеся на первой странице НЕ соответствуют тем, которые вернул запрос к апи");
 
             //AqualityServices.Browser.GoBack();
@@ -60,7 +61,12 @@ namespace ExamVeshkin.Tests
                 "После обновления страницы проект НЕ появился в списке");
 
             HomePage.WaitAndClickProjectButton(nameOfNewProject);
-            string newTestRecord = Api.AddNewTest(Sid,nameOfNewProject, _testName, methodName);
+            string? newTestRecordId = Api.CreateTestRecord(Sid,nameOfNewProject, _testName, methodName);
+            Api.SendTestLog(newTestRecordId);
+            string screenshot = AqualityServices.Browser.Driver.GetScreenshot().AsBase64EncodedString;
+            Api.AttachPictureToTest(newTestRecordId, screenshot);
+            Assert.That(AqualityServices.ConditionalWait.WaitFor(ProjectPage.table.IsTableNotEmpty), Is.True,
+                "Тест отобразился без обновления страницы");
         }
     }
 }

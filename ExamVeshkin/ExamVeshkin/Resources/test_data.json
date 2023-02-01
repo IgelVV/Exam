@@ -1,4 +1,5 @@
 ﻿{
     "projectName": "Nexage",
-    "projectId": "1"
+    "projectId": "1",
+    "pathToLog": "..\\..\\..\\Log\\log.log"
 }

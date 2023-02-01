@@ -7,7 +7,6 @@ namespace ExamVeshkin.Utilities
         private static readonly JsonSettingsFile s_configData = new(@"config_data.json");
         private static readonly JsonSettingsFile s_testData = new(@"test_data.json");
 
-
         public static string Scheme => s_configData.GetValue<string>("scheme");
         public static string HostAndPort => s_configData.GetValue<string>("hostAndPort");
         public static string WebPath => s_configData.GetValue<string>("webPath");
@@ -18,7 +17,6 @@ namespace ExamVeshkin.Utilities
 
         public static string ProjectName => s_testData.GetValue<string>("projectName");
         public static string ProjectId => s_testData.GetValue<string>("projectId");
-
-
+        public static string PathToLog => s_testData.GetValue<string>("pathToLog");
     }
 }
