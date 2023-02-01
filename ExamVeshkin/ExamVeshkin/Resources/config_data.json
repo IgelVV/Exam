@@ -3,7 +3,6 @@
     "hostAndPort": "localhost:8080",
     "webPath": "/web",
     "apiPath": "/api",
-    "variant": "2",
     "userName": "login",
     "password": "password"
 }

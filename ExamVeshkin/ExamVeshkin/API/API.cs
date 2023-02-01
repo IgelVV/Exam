@@ -22,17 +22,21 @@ namespace ExamVeshkin.API
             request.AddParameter("variant", ConfigManager.Variant);
 
             RestResponse responce = _client.Post(request);
-            string? token = responce.Content;
-            return token;
+            return responce.Content;
         }
 
         public List<TestRecord>? TestGetJson()
         {
             var request = new RestRequest(APIEndpoints.TEST_GET_JSON);
             request.AddParameter("projectId", ConfigManager.ProjectId);
-
-            List<TestRecord>? response = _client.Post<List<TestRecord>>(request);
-            return response;
+            try
+            {
+                return _client.Post<List<TestRecord>>(request);
+            }
+            catch (System.Text.Json.JsonException)
+            {
+                return null;
+            }
         }
 
         public string? CreateTestRecord(string sid, string projectName, string testName, string methodName)
@@ -46,8 +50,7 @@ namespace ExamVeshkin.API
             request.AddParameter("env", hostName);
 
             RestResponse response = _client.Post(request);
-            string? id = response.Content;
-            return id;
+            return response.Content;
         }
 
         public void SendTestLog(string testId)

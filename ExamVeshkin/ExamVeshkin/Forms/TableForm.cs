@@ -26,7 +26,7 @@ namespace ExamVeshkin.Forms
         public List<TestRecord> GetTestRecords()
         {
             State.WaitForDisplayed();
-            List<TestRecord> testRecords= new();
+            List<TestRecord> testRecords = new();
             foreach (IElement row in Rows.Skip(FIRST_VALUABLE_ROW_INDEX))
             {
                 testRecords.Add(RowToRecord(row));
@@ -39,12 +39,12 @@ namespace ExamVeshkin.Forms
             IList<ILabel> cells = GetCells(row);
             TestRecord testRecord = new()
             {
-                Name= cells[NAME_INDEX].Text,
+                Name = cells[NAME_INDEX].Text,
                 Method = cells[METHOD_INDEX].Text,
                 Status = cells[STATUS_INDEX].Text,
                 StartTime = cells[START_TIME_INDEX].Text,
                 EndTime = cells[END_TIME_INDEX].Text,
-                Duration= cells[DURATION_INDEX].Text,
+                Duration = cells[DURATION_INDEX].Text,
             };
             return testRecord;
         }
