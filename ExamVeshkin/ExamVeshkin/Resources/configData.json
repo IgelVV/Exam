@@ -1,0 +1,17 @@
+﻿{
+    "scheme": "http://",
+    "hostAndPort": "localhost:8080",
+    "webPath": "/web",
+    "apiPath": "/api",
+    "cookieNames": {
+        "token": "token"
+    },
+    "apiEndpoints": {
+        "tokenGet": "/token/get",
+        "testGetJson": "/test/get/json",
+        "testGetXml": "/test/get/xml",
+        "testPut": "/test/put",
+        "testPutLog": "/test/put/log",
+        "testPutAttachment": "/test/put/attachment"
+    }
+}

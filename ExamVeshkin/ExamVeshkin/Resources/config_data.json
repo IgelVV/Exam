@@ -1,8 +1,0 @@
-﻿{
-    "scheme": "http://",
-    "hostAndPort": "localhost:8080",
-    "webPath": "/web",
-    "apiPath": "/api",
-    "userName": "login",
-    "password": "password"
-}
